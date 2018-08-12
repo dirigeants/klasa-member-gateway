@@ -9,7 +9,7 @@ module.exports = Structures.extend('GuildMember', GuildMember => {
 
 		/**
 		 * @typedef {external:GuildMemberJSON} KlasaMemberJSON
-		 * @property {SettingsJSON} settings The per member settings
+		 * @property {external:SettingsJSON} settings The per member settings
 		 */
 
 		/**
@@ -20,8 +20,8 @@ module.exports = Structures.extend('GuildMember', GuildMember => {
 
 			/**
 			 * The member level settings for this context (member || default)
-			 * @since 0.5.0
-			 * @type {Settings}
+			 * @since 0.0.1
+			 * @type {external:Settings}
 			 */
 			this.settings = this.client.gateways.members.create([this.guild.id, this.id]);
 		}
