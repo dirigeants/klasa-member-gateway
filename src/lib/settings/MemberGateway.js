@@ -2,40 +2,16 @@ const { GatewayStorage, Settings, util: { getIdentifier } } = require('klasa');
 const { Collection, Guild, GuildChannel, Message } = require('discord.js');
 
 /**
- * <danger>You should never create a Gateway instance by yourself.
- * Please check {@link UnderstandingSettingsGateway} about how to construct your own Gateway.</danger>
  * The Gateway class that manages the data input, parsing, and output, of an entire database, while keeping a cache system sync with the changes.
  * @extends GatewayStorage
  */
 class MemberGateway extends GatewayStorage {
 
 	/**
-	 * @typedef {Object} GatewayGetPathOptions
-	 * @property {boolean} [avoidUnconfigurable=false] Whether the getPath should avoid unconfigurable keys
-	 * @property {boolean} [piece=true] Whether the getPath should return pieces or folders
-	 */
-
-	/**
-	 * @typedef {Object} GatewayGetPathResult
-	 * @property {SchemaPiece} piece The piece resolved from the path
-	 * @property {string[]} route The resolved path split by dots
-	 */
-
-	/**
-	 * @typedef {(KlasaGuild|KlasaMessage|external:GuildChannel)} GuildResolvable
-	 */
-
-	/**
-	 * @typedef {Object} GatewayJSON
-	 * @property {string} type The name of this gateway
-	 * @property {Object} schema The current schema
-	 */
-
-	/**
 	 * @since 0.0.1
 	 * @param {GatewayDriver} store The GatewayDriver instance which initiated this instance
 	 * @param {string} type The name of this Gateway
-	 * @param {GatewayOptions} schema The schema for this gateway
+	 * @param {external:Schema} schema The schema for this gateway
 	 * @param {string} provider The provider's name for this gateway
 	 */
 	constructor(store, type, schema, provider) {
@@ -44,19 +20,19 @@ class MemberGateway extends GatewayStorage {
 		/**
 		 * The GatewayDriver that manages this Gateway
 		 * @since 0.0.1
-		 * @type {GatewayDriver}
+		 * @type {external:GatewayDriver}
 		 */
 		this.store = store;
 
 		/**
 		 * The synchronization queue for all Settings instances
-		 * @since 0.5.0
-		 * @type {external:Collection<string, Promise<Settings>>}
+		 * @since 0.0.1
+		 * @type {external:Collection<string, Promise<external:Settings>>}
 		 */
 		this.syncQueue = new Collection();
 
 		/**
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @type {boolean}
 		 * @private
 		 */
@@ -65,8 +41,8 @@ class MemberGateway extends GatewayStorage {
 
 	/**
 	 * The Settings that this class should make.
-	 * @since 0.5.0
-	 * @type {Settings}
+	 * @since 0.0.1
+	 * @type {external:Settings}
 	 * @readonly
 	 * @private
 	 */
@@ -74,6 +50,12 @@ class MemberGateway extends GatewayStorage {
 		return Settings;
 	}
 
+	/**
+	 * Get a Settings entry from this gateway
+	 * @since 0.0.1
+	 * @param {string|string[]} id The id for this instance
+	 * @returns {?external:Settings}
+	 */
 	get(id) {
 		const [guildID, memberID] = typeof id === 'string' ? id.split('.') : id;
 
@@ -88,10 +70,10 @@ class MemberGateway extends GatewayStorage {
 
 	/**
 	 * Create a new Settings for this gateway
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {string|string[]} id The id for this instance
 	 * @param {Object<string, *>} [data={}] The data for this Settings instance
-	 * @returns {Settings}
+	 * @returns {external:Settings}
 	 */
 	create(id, data = {}) {
 		const [guildID, memberID] = typeof id === 'string' ? id.split('.') : id;
@@ -107,9 +89,9 @@ class MemberGateway extends GatewayStorage {
 	 * Sync either all entries from the cache with the persistent database, or a single one.
 	 * @since 0.0.1
 	 * @param {(Array<string>|string)} [input=Array<string>] An object containing a id property, like discord.js objects, or a string
-	 * @returns {?(MemberGateway|Settings)}
+	 * @returns {?(MemberGateway|external:Settings)}
 	 */
-	async sync(input = [...this.client.guilds.reduce((keys, guild) => keys.concat(guild.members.map(member => member.settings.id)), [])]) {
+	async sync(input = this.client.guilds.reduce((keys, guild) => keys.concat(guild.members.map(member => member.settings.id)), [])) {
 		if (Array.isArray(input)) {
 			if (!this._synced) this._synced = true;
 			const entries = await this.provider.getAll(this.type, input);
@@ -140,10 +122,10 @@ class MemberGateway extends GatewayStorage {
 
 	/**
 	 * Resolve a path from a string.
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {string} [key=null] A string to resolve
-	 * @param {GatewayGetPathOptions} [options={}] Whether the Gateway should avoid configuring the selected key
-	 * @returns {?GatewayGetPathResult}
+	 * @param {external:GatewayGetPathOptions} [options={}] Whether the Gateway should avoid configuring the selected key
+	 * @returns {?external:GatewayGetPathResult}
 	 */
 	getPath(key = '', { avoidUnconfigurable = false, piece: requestPiece = true, errors = true } = {}) {
 		if (key === '' || key === '.') return { piece: this.schema, route: [] };
@@ -188,9 +170,9 @@ class MemberGateway extends GatewayStorage {
 
 	/**
 	 * Resolves a guild
-	 * @since 0.5.0
-	 * @param {GuildResolvable} guild A guild resolvable
-	 * @returns {?KlasaGuild}
+	 * @since 0.0.1
+	 * @param {external:GuildResolvable} guild A guild resolvable
+	 * @returns {?external:KlasaGuild}
 	 * @private
 	 */
 	_resolveGuild(guild) {
@@ -207,8 +189,8 @@ class MemberGateway extends GatewayStorage {
 
 	/**
 	 * Get a JSON object containing the schema and options.
-	 * @since 0.5.0
-	 * @returns {GatewayJSON}
+	 * @since 0.0.1
+	 * @returns {external:GatewayJSON}
 	 */
 	toJSON() {
 		return {
@@ -220,7 +202,7 @@ class MemberGateway extends GatewayStorage {
 
 	/**
 	 * Stringify a value or the instance itself.
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @returns {string}
 	 */
 	toString() {
