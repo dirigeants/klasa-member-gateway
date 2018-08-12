@@ -1,0 +1,38 @@
+{
+  "name": "klasa-member-gateway",
+  "version": "0.0.1-dev",
+  "description": "Klasa Dashboard Hooks: a simple plugin for the klasa bot framework that exposes an api for use in a frontend framework.",
+  "homepage": "https://klasa.js.org/",
+  "bugs": {
+    "url": "https://github.com/dirigeants/klasa-member-gateway/issues"
+  },
+  "license": "MIT",
+  "author": "Dirigeants",
+  "main": "src/index.js",
+  "types": "typings/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dirigeants/klasa-member-gateway.git"
+  },
+  "scripts": {
+    "lint": "npx eslint --fix src && npx eslint --fix --config .eslintrcmd.json --ext md guides && npx tslint --fix 'typings/*.ts'",
+    "test": "npx eslint src && npx tslint 'typings/*.ts' && npx eslint --config .eslintrcmd.json --ext md guides && npx markdownlint guides README.md",
+    "docs": "npx dg --source src --custom guides/.docconfig.json --output docs/docs.json --logging"
+  },
+  "peerDependencies": {
+    "klasa": "github:dirigeants/klasa#master"
+  },
+  "devDependencies": {
+    "@types/node": "^10.5.8",
+    "docgen": "github:dirigeants/docsgen",
+    "eslint": "^5.3.0",
+    "eslint-config-klasa": "github:dirigeants/klasa-lint",
+    "eslint-plugin-markdown": "^1.0.0-beta.6",
+    "markdownlint-cli": "^0.12.0",
+    "tslint": "^5.11.0",
+    "typescript": "^3.0.1"
+  },
+  "engines": {
+    "node": ">=10.0.0"
+  }
+}
