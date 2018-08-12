@@ -1,9 +1,7 @@
 const { Client, Schema } = require('klasa');
 const MemberGateway = require('./settings/MemberGateway');
 
-require('./extensions/KlasaMember');
-
-class MemberGatewayClient extends Client {
+module.exports = class extends Client {
 
 	constructor(options) {
 		super(options);
@@ -19,6 +17,6 @@ class MemberGatewayClient extends Client {
 		this.gateways._queue.push(this.gateways.members.init.bind(this.gateways.members));
 	}
 
-}
+};
 
-MemberGatewayClient.defaultMembersSchema = new Schema();
+Client.defaultMembersSchema = new Schema();
