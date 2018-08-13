@@ -1,6 +1,8 @@
 const { Client, Schema } = require('klasa');
 const MemberGateway = require('./settings/MemberGateway');
 
+Client.defaultMembersSchema = new Schema();
+
 module.exports = class extends Client {
 
 	constructor(options) {
@@ -18,5 +20,3 @@ module.exports = class extends Client {
 	}
 
 };
-
-Client.defaultMembersSchema = new Schema();
