@@ -39,3 +39,7 @@ module.exports = {
  * @external GatewayJSON
  * @see {@link https://klasa.js.org/#/docs/klasa/master/typedef/GatewayJSON}
  */
+/**
+ * @external SettingsJSON
+ * @see {@link https://klasa.js.org/#/docs/klasa/master/typedef/SettingsJSON}
+ */
