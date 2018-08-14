@@ -168,25 +168,6 @@ class MemberGateway extends GatewayStorage {
 		return { piece, route };
 	}
 
-	/**
-	 * Resolves a guild
-	 * @since 0.0.1
-	 * @param {external:GuildResolvable} guild A guild resolvable
-	 * @returns {?external:KlasaGuild}
-	 * @private
-	 */
-	_resolveGuild(guild) {
-		const type = typeof guild;
-		if (type === 'object' && guild !== null) {
-			if (guild instanceof Guild) return guild;
-			if ((guild instanceof GuildChannel) ||
-				(guild instanceof Message)) return guild.guild;
-		} else if (type === 'string' && /^\d{17,19}$/.test(guild)) {
-			return this.client.guilds.get(guild) || null;
-		}
-		return null;
-	}
-
 }
 
 module.exports = MemberGateway;
