@@ -187,28 +187,6 @@ class MemberGateway extends GatewayStorage {
 		return null;
 	}
 
-	/**
-	 * Get a JSON object containing the schema and options.
-	 * @since 0.0.1
-	 * @returns {external:GatewayJSON}
-	 */
-	toJSON() {
-		return {
-			type: this.type,
-			provider: this.providerName,
-			schema: this.schema.toJSON()
-		};
-	}
-
-	/**
-	 * Stringify a value or the instance itself.
-	 * @since 0.0.1
-	 * @returns {string}
-	 */
-	toString() {
-		return `Gateway(${this.type})`;
-	}
-
 }
 
 module.exports = MemberGateway;
