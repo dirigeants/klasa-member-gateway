@@ -1,5 +1,5 @@
 const { GatewayStorage, Settings, util: { getIdentifier } } = require('klasa');
-const { Collection, Guild, GuildChannel, Message } = require('discord.js');
+const { Collection } = require('discord.js');
 
 /**
  * The Gateway class that manages the data input, parsing, and output, of an entire database, while keeping a cache system sync with the changes.
