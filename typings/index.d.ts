@@ -36,11 +36,6 @@ declare module 'klasa-member-gateway' {
 		public create(id: string | [Snowflake, Snowflake], data?: Object): Settings;
 		public sync(input: string): Promise<Settings>;
 		public sync(input?: string[]): Promise<this>;
-		public getPath(key?: string, options?: GatewayGetPathOptions): GatewayGetPathResult | null;
-		public toJSON(): GatewayJSON;
-		public toString(): string;
-
-		private _resolveGuild(guild: GuildResolvable): KlasaGuild;
 	}
 
 	export type KlasaMemberJSON = {
