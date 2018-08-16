@@ -1,7 +1,7 @@
 module.exports = {
-    CLIENT: {
-        gateways: {
-            members: {}
-        }
-    }
+	CLIENT: {
+		gateways: {
+			members: {}
+		}
+	}
 };
