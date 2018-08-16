@@ -1,4 +1,5 @@
-const { Client, Schema } = require('klasa');
+const { Client, Schema, util: { mergeDefault } } = require('klasa');
+const { CLIENT } = require('./util/constants');
 const MemberGateway = require('./settings/MemberGateway');
 
 Client.defaultMemberSchema = new Schema();
@@ -11,7 +12,8 @@ module.exports = class extends Client {
 	}
 
 	static [Client.plugin]() {
-		const { members = {} } = this.options.gateways;
+		mergeDefault(this.options, CLIENT);
+		const { members } = this.options.gateways;
 		const memberSchema = 'schema' in members ? members.schema : this.constructor.defaultMemberSchema;
 
 		this.gateways.members = new MemberGateway(this.gateways, 'members', memberSchema, members.provider || this.options.providers.default);
