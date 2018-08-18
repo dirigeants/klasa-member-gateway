@@ -1,7 +1,7 @@
 {
   "name": "klasa-member-gateway",
   "version": "0.0.1-dev",
-  "description": "Klasa Dashboard Hooks: a simple plugin for the klasa bot framework that exposes an api for use in a frontend framework.",
+  "description": "Klasa Member Gateway: a simple plugin for the klasa bot framework that adds an efficient per-member settings gateway.",
   "homepage": "https://klasa.js.org/",
   "bugs": {
     "url": "https://github.com/dirigeants/klasa-member-gateway/issues"
