@@ -3,6 +3,7 @@
 Simple plugin to manage an efficient per-member settings gateway.
 
 ## Installation
+
 ```
 NPM
 npm install --save dirigeants/klasa-member-gateway
@@ -12,6 +13,7 @@ yarn add https://github.com/dirigeants/klasa-member-gateway.git
 ```
 
 ## Setup
+
 ```js
 const { Client } = require('klasa');
 
