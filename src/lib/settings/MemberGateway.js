@@ -51,6 +51,18 @@ class MemberGateway extends GatewayStorage {
 	}
 
 	/**
+	 * The ID length for all entries.
+	 * @since 0.0.1
+	 * @type {number}
+	 * @readonly
+	 * @private
+	 */
+	get idLength() {
+		// 18 + 1 + 18: `{MEMBERID}.{GUILDID}`
+		return 37;
+	}
+
+	/**
 	 * Get a Settings entry from this gateway
 	 * @since 0.0.1
 	 * @param {string|string[]} id The id for this instance

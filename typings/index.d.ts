@@ -30,6 +30,7 @@ declare module 'klasa-member-gateway' {
 		public store: GatewayDriver;
 		public syncQueue: Collection<string, Promise<Settings>>;
 		public readonly Settings: Settings;
+		public readonly idLength: number;
 		private _synced: boolean;
 
 		public get(id: string | [Snowflake, Snowflake]): Settings | null;
