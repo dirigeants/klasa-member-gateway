@@ -6,6 +6,7 @@ declare module 'klasa-member-gateway' {
 		Collection
 	} from 'discord.js';
 	import {
+		Client,
 		Schema,
 		Settings,
 		GatewayStorage,
