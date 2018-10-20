@@ -11,4 +11,4 @@ export { default as MemberGateway } from './lib/settings/MemberGateway';
 // MemberGatewayClient
 import Client from './lib/Client';
 export { Client };
-export const { [pluginSymbol] } = Client;
+export const { [pluginSymbol] } = Client[pluginSymbol];
