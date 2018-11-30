@@ -30,7 +30,7 @@
     "eslint-plugin-markdown": "^1.0.0-beta.6",
     "markdownlint-cli": "^0.13.0",
     "tslint": "^5.11.0",
-    "typescript": "^3.0.1"
+    "typescript": "^3.2.1"
   },
   "engines": {
     "node": ">=8.6.0"
