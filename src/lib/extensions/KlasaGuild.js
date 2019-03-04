@@ -3,9 +3,9 @@ const KlasaGuildMemberStore = require('./KlasaGuildMemberStore');
 
 Structures.extend('guild', Guild => {
 	/**
-     * Mutates KlasaGuild to include a KlasaMemberStore with our extensions
+	 * Mutates KlasaGuild to include a KlasaMemberStore with our extensions
 	 * @extends external:Guild
-     */
+	 */
 	class KlasaGuild extends Guild {
 
 		constructor(...args) {
