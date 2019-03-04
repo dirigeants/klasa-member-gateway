@@ -12,10 +12,10 @@ Structures.extend('guild', Guild => {
 			super(...args);
 
 			/**
-             * Storage for KlasaMembers
-             * @since 0.0.1
-             * @type {KlasaGuildMemberStore}
-             */
+			 * Storage for KlasaMembers
+			 * @since 0.0.1
+			 * @type {KlasaGuildMemberStore}
+			 */
 			this.members = new KlasaGuildMemberStore();
 		}
 
