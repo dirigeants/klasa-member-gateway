@@ -1,12 +1,22 @@
 const { Client: { plugin } } = require('klasa');
 
 module.exports = {
+	KlasaGuild: require('./lib/extensions/KlasaGuild'),
+	KlasaGuildMemberStore: require('./lib/extensions/KlasaGuildMemberStore'),
 	KlasaMember: require('./lib/extensions/KlasaMember'),
 	MemberGateway: require('./lib/settings/MemberGateway'),
 	Client: require('./lib/Client'),
 	[plugin]: require('./lib/Client')[plugin]
 };
 
+/**
+ * @external Guild
+ * @see {@link https://discord.js.org/#/docs/main/master/class/Guild}
+ */
+/**
+ * @external GuildMemberStore
+ * @see {@link https://discord.js.org/#/docs/main/master/class/GuildMemberStore}
+ */
 /**
  * @external GuildMember
  * @see {@link https://discord.js.org/#/docs/main/master/class/GuildMember}
