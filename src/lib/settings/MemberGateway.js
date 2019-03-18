@@ -46,11 +46,10 @@ class MemberGateway extends GatewayStorage {
 	 * Gets an entry from the cache or creates one if it does not exist
 	 * @since 0.5.0
 	 * @param {*} target The target that holds a Settings instance of the holder for the new one
-	 * @param {string|number} [id = target.id] The settings' identificator
 	 * @returns {external:Settings}
 	 */
-	acquire(target, id = target.id) {
-		return this.get(id) || this.create(target, id);
+	acquire(target) {
+		return this.get([target.guild.id, target.id]) || this.create([target.guild.id, target.id]);
 	}
 
 	/**
