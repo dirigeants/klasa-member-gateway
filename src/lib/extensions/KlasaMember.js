@@ -23,7 +23,7 @@ module.exports = Structures.extend('GuildMember', GuildMember => {
 			 * @since 0.0.1
 			 * @type {external:Settings}
 			 */
-			this.settings = this.client.gateways.members.acquire(this);
+			this.settings = this.client.gateways.get('members').acquire(this);
 		}
 
 		/**
