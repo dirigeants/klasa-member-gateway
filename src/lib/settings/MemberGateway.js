@@ -1,5 +1,4 @@
 const { GatewayStorage, Settings, util: { getIdentifier } } = require('klasa');
-const { Collection } = require('discord.js');
 
 /**
  * The Gateway class that manages the data input, parsing, and output, of an entire database, while keeping a cache system sync with the changes.
@@ -9,27 +8,19 @@ class MemberGateway extends GatewayStorage {
 
 	/**
 	 * @since 0.0.1
-	 * @param {GatewayDriver} store The GatewayDriver instance which initiated this instance
-	 * @param {string} type The name of this Gateway
-	 * @param {external:Schema} schema The schema for this gateway
-	 * @param {string} provider The provider's name for this gateway
+	 * @param {external:KlasaClient} client The KlasaClient instance which initiated this instance
+	 * @param {string} name The name of this Gateway
+	 * @param {external:GatewayOptions} [options = {}] The options for this gateway
 	 */
-	constructor(store, type, schema, provider) {
-		super(store.client, type, schema, provider);
-
-		/**
-		 * The GatewayDriver that manages this Gateway
-		 * @since 0.0.1
-		 * @type {external:GatewayDriver}
-		 */
-		this.store = store;
+	constructor(client, name, options) {
+		super(client, name, options);
 
 		/**
 		 * The synchronization queue for all Settings instances
 		 * @since 0.0.1
-		 * @type {external:Collection<string, Promise<external:Settings>>}
+		 * @type {WeakMap<string, Promise<external:Settings>>}
 		 */
-		this.syncQueue = new Collection();
+		this.syncMap = new WeakMap();
 
 		/**
 		 * @since 0.0.1
@@ -37,17 +28,6 @@ class MemberGateway extends GatewayStorage {
 		 * @private
 		 */
 		Object.defineProperty(this, '_synced', { value: false, writable: true });
-	}
-
-	/**
-	 * The Settings that this class should make.
-	 * @since 0.0.1
-	 * @type {external:Settings}
-	 * @readonly
-	 * @private
-	 */
-	get Settings() {
-		return Settings;
 	}
 
 	/**
@@ -63,9 +43,20 @@ class MemberGateway extends GatewayStorage {
 	}
 
 	/**
+	 * Gets an entry from the cache or creates one if it does not exist
+	 * @since 0.5.0
+	 * @param {string|string[]} id The id for this instance
+	 * @param {*} target The target that holds a Settings instance of the holder for the new one
+	 * @returns {external:Settings}
+	 */
+	acquire(id, target) {
+		return this.get(id) || this.create(id, target);
+	}
+
+	/**
 	 * Get a Settings entry from this gateway
 	 * @since 0.0.1
-	 * @param {string|string[]} id The id for this instance
+	 * @param {string|string[]} id The id for the instance to retrieve
 	 * @returns {?external:Settings}
 	 */
 	get(id) {
@@ -84,15 +75,16 @@ class MemberGateway extends GatewayStorage {
 	 * Create a new Settings for this gateway
 	 * @since 0.0.1
 	 * @param {string|string[]} id The id for this instance
-	 * @param {Object<string, *>} [data={}] The data for this Settings instance
+	 * @param {any} target The holder for this Settings instance
 	 * @returns {external:Settings}
 	 */
-	create(id, data = {}) {
+	create(id, target) {
 		const [guildID, memberID] = typeof id === 'string' ? id.split('.') : id;
+
 		const entry = this.get([guildID, memberID]);
 		if (entry) return entry;
 
-		const settings = new this.Settings(this, { id: `${guildID}.${memberID}`, ...data });
+		const settings = new Settings(this, target, `${guildID}.${memberID}`);
 		if (this._synced) settings.sync();
 		return settings;
 	}
@@ -106,7 +98,7 @@ class MemberGateway extends GatewayStorage {
 	async sync(input = this.client.guilds.reduce((keys, guild) => keys.concat(guild.members.map(member => member.settings.id)), [])) {
 		if (Array.isArray(input)) {
 			if (!this._synced) this._synced = true;
-			const entries = await this.provider.getAll(this.type, input);
+			const entries = await this.provider.getAll(this.name, input);
 			for (const entry of entries) {
 				if (!entry) continue;
 
