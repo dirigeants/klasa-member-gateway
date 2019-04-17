@@ -22,11 +22,6 @@ declare module 'klasa-member-gateway' {
 
 	export { MemberGatewayClient as Client };
 
-	export class KlasaMember extends GuildMember {
-		public settings: Settings;
-		public toJSON(): KlasaMemberJSON;
-	}
-
 	export class MemberGateway extends GatewayStorage {
 		public store: GatewayDriver;
 		public syncQueue: Collection<string, Promise<Settings>>;
@@ -51,4 +46,15 @@ declare module 'klasa-member-gateway' {
 		roles: Array<Snowflake>;
 		settings: Settings;
 	};
+
+}
+
+declare module 'discord.js' {
+
+	import { Settings } from 'klasa';
+
+	export interface GuildMember {
+		public settings: Settings;
+	}
+
 }
