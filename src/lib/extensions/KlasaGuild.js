@@ -1,7 +1,7 @@
 const { Structures } = require('discord.js');
 const KlasaGuildMemberStore = require('./KlasaGuildMemberStore');
 
-Structures.extend('guild', Guild => {
+Structures.extend('Guild', Guild => {
 	/**
 	 * Mutates KlasaGuild to include a KlasaMemberStore with our extensions
 	 * @extends external:Guild
