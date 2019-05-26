@@ -17,7 +17,7 @@ declare module 'klasa-member-gateway' {
 	} from 'klasa';
 
 	class MemberGatewayClient extends Client {
-		public static defaultMembersSchema: Schema;
+		public static defaultMemberSchema: Schema;
 	}
 
 	export { MemberGatewayClient as Client };
