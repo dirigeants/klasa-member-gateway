@@ -10,10 +10,7 @@ declare module 'klasa-member-gateway' {
 		Schema,
 		Settings,
 		GatewayStorage,
-		GatewayDriver,
-		GuildResolvable,
-		GatewayGetPathOptions,
-		GatewayGetPathResult
+		GatewayDriver
 	} from 'klasa';
 
 	class MemberGatewayClient extends Client {
@@ -35,18 +32,6 @@ declare module 'klasa-member-gateway' {
 		public sync(input?: string[]): Promise<this>;
 	}
 
-	export type KlasaMemberJSON = {
-		guildID: Snowflake;
-		userID: Snowflake;
-		joinedTimestamp: number;
-		lastMessageChannelID?: Snowflake;
-		deleted: boolean;
-		nickname?: string;
-		displayName: string;
-		roles: Array<Snowflake>;
-		settings: Settings;
-	};
-
 }
 
 declare module 'discord.js' {
@@ -54,7 +39,7 @@ declare module 'discord.js' {
 	import { Settings } from 'klasa';
 
 	export interface GuildMember {
-		public settings: Settings;
+		settings: Settings;
 	}
 
 }
