@@ -95,24 +95,25 @@ class MemberGateway extends GatewayStorage {
 	 * @param {(Array<string>|string)} [input=Array<string>] An object containing a id property, like discord.js objects, or a string
 	 * @returns {?(MemberGateway|external:Settings)}
 	 */
-	async sync(input = this.client.guilds.reduce((keys, guild) => keys.concat(guild.members.map(member => member.settings.id)), [])) {
+	async sync(input) {
+		// If the schema is empty, there's no point in running sync ops
+		if (!this.schema.size) return this;
+		if (typeof input === 'undefined') input = this.client.guilds.reduce((keys, guild) => keys.concat(guild.members.map(member => member.settings.id)), []);
 		if (Array.isArray(input)) {
-			if (!this._synced) this._synced = true;
+			this._synced = true;
 			const entries = await this.provider.getAll(this.name, input);
 			for (const entry of entries) {
 				if (!entry) continue;
-
-				// Get the entry from the cache
 				const cache = this.get(entry.id);
-				if (!cache) continue;
-
-				cache._existsInDB = true;
-				cache._patch(entry);
+				if (cache) {
+					cache.existenceStatus = true;
+					cache._patch(entry);
+					this.client.emit('settingsSync', cache);
+				}
 			}
 
-			// Set all the remaining settings from unknown status in DB to not exists.
 			for (const guild of this.client.guilds.values()) {
-				for (const member of guild.members.values()) if (member.settings._existsInDB !== true) member.settings._existsInDB = false;
+				for (const member of guild.member.values()) if (member.settings.existenceStatus === null) member.settings.existenceStatus = false;
 			}
 			return this;
 		}
@@ -121,7 +122,7 @@ class MemberGateway extends GatewayStorage {
 		if (!target) throw new TypeError('The selected target could not be resolved to a string.');
 
 		const cache = this.get(target);
-		return cache ? cache.sync() : null;
+		return cache ? cache.sync(true) : null;
 	}
 
 }
