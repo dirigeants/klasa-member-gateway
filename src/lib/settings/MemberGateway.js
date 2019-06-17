@@ -113,7 +113,7 @@ class MemberGateway extends GatewayStorage {
 			}
 
 			for (const guild of this.client.guilds.values()) {
-				for (const member of guild.member.values()) if (member.settings.existenceStatus === null) member.settings.existenceStatus = false;
+				for (const member of guild.members.values()) if (member.settings.existenceStatus === null) member.settings.existenceStatus = false;
 			}
 			return this;
 		}
