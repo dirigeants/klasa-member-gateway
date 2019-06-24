@@ -33,21 +33,17 @@ declare module 'klasa-member-gateway' {
 	}
 
 }
-						       
-declare module 'klasa' {
-
-	namespace Client {
-		export let defaultMemberSchema: Schema;
-	}
-
-}
 
 declare module 'discord.js' {
 
-	import { Settings } from 'klasa';
+	import { Schema, Settings } from 'klasa';
 
 	export interface GuildMember {
 		settings: Settings;
+	}
+						       
+	export namespace Client {
+		export let defaultMemberSchema: Schema;
 	}
 
 }
