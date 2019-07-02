@@ -6,14 +6,16 @@ const { GuildMemberStore } = require('discord.js');
  */
 class KlasaGuildMemberStore extends GuildMemberStore {
 
-	/**
-	 * Fetches member and syncs settings
-	 * @param  {...any} args d.js args for MemberStore#fetch
-	 */
-	async fetch(...args) {
-		const member = await super.fetch(...args);
+	async _fetchSingle(...args) {
+		const member = await super._fetchSingle(...args);
 		await member.settings.sync();
 		return member;
+	}
+
+	async _fetchMany(...args) {
+		const members = await super._fetchMany(...args);
+		await Promise.all(members.map(member => member.settings.sync()));
+		return members;
 	}
 
 }
