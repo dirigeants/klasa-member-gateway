@@ -23,7 +23,7 @@ module.exports = Structures.extend('GuildMember', GuildMember => {
 			 * @since 0.0.1
 			 * @type {external:Settings}
 			 */
-			this.settings = this.client.gateways.get('members').acquire([this.guild.id, this.id], this);
+			this.settings = this.client.gateways.get('members').acquire(this, `${this.guild.id}.${this.id}`);
 		}
 
 		/**
@@ -32,7 +32,7 @@ module.exports = Structures.extend('GuildMember', GuildMember => {
 		 * @returns {KlasaMemberJSON}
 		 */
 		toJSON() {
-			return { ...super.toJSON(), settings: this.settings };
+			return { ...super.toJSON(), settings: this.settings.toJSON() };
 		}
 
 	}

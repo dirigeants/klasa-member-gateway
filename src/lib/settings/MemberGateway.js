@@ -19,6 +19,17 @@ class MemberGateway extends Gateway {
 	}
 
 	/**
+	 * Gets an entry from the cache or creates one if it does not exist
+	 * @since 0.5.0
+	 * @param {*} target The target that holds a Settings instance of the holder for the new one
+	 * @param {string} [id = `${target.guild.id}.${target.id}`] The settings' identificator
+	 * @returns {Settings}
+	 */
+	acquire(target, id = `${target.guild.id}.${target.id}`) {
+		return super.acquire(target, id);
+	}
+
+	/**
 	 * Get a Settings entry from this gateway
 	 * @since 0.0.1
 	 * @param {string} id The id for the instance to retrieve

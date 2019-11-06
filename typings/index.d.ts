@@ -21,6 +21,7 @@ declare module 'klasa-member-gateway' {
 
 	export class MemberGateway extends Gateway {
 		public readonly idLength: number;
+		public acquire(target: unknown, id?: string): Settings;
 		public get(id: string): Settings | null;
 		public create(target: unknown, id?: string): Settings;
 	}
