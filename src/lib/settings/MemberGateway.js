@@ -1,4 +1,4 @@
-const { Gateway, Settings } = require('klasa');
+const { Gateway } = require('klasa');
 
 /**
  * The Gateway class that manages the data input, parsing, and output, of an entire database, while keeping a cache system sync with the changes.
