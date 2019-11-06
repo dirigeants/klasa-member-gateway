@@ -9,7 +9,7 @@ declare module 'klasa-member-gateway' {
 		Client,
 		Schema,
 		Settings,
-		GatewayStorage,
+		Gateway,
 		GatewayDriver
 	} from 'klasa';
 
@@ -19,17 +19,10 @@ declare module 'klasa-member-gateway' {
 
 	export { MemberGatewayClient as Client };
 
-	export class MemberGateway extends GatewayStorage {
-		public store: GatewayDriver;
-		public syncQueue: Collection<string, Promise<Settings>>;
-		public readonly Settings: Settings;
+	export class MemberGateway extends Gateway {
 		public readonly idLength: number;
-		private _synced: boolean;
-
-		public get(id: string | [Snowflake, Snowflake]): Settings | null;
-		public create(id: string | [Snowflake, Snowflake], data?: Object): Settings;
-		public sync(input: string): Promise<Settings>;
-		public sync(input?: string[]): Promise<this>;
+		public get(id: string): Settings | null;
+		public create(target: unknown, id?: string): Settings;
 	}
 
 }
@@ -41,9 +34,9 @@ declare module 'discord.js' {
 	export interface GuildMember {
 		settings: Settings;
 	}
-						       
+
 	export namespace Client {
-		export let defaultMemberSchema: Schema;
+		export const defaultMemberSchema: Schema;
 	}
 
 }
