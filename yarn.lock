@@ -24,9 +24,9 @@
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@types/color-name/-/color-name-1.1.1.tgz#1c1261bbeaa10a8055bbc5d8ab84b7b2afc846a0"
 
-"@types/node@^12.12.10":
-  version "12.12.10"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.12.10.tgz#c8b49f4c428cced07d8758ec45285be6597fb4d8"
+"@types/node@^12.12.11":
+  version "12.12.11"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.12.11.tgz#bec2961975888d964196bf0016a2f984d793d3ce"
 
 acorn-jsx@^5.0.0:
   version "5.0.1"
