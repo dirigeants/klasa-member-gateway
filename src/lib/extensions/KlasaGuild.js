@@ -8,8 +8,8 @@ Structures.extend('Guild', Guild => {
 	 */
 	class KlasaGuild extends Guild {
 
-		constructor(client, data) {
-			super(client, Object.keys(restData).length ? restData : undefined);
+		constructor(...args) {
+			super(...args);
 
 			/**
 			 * Storage for KlasaMembers
