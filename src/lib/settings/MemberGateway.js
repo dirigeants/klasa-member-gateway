@@ -71,9 +71,9 @@ class MemberGateway extends GatewayStorage {
 	get(id) {
 		const [guildID, memberID] = typeof id === 'string' ? id.split('.') : id;
 
-		const guild = this.client.guilds.get(guildID);
+		const guild = this.client.guilds.cache.get(guildID);
 		if (guild) {
-			const member = guild.members.get(memberID);
+			const member = guild.members.cache.get(memberID);
 			return member && member.settings;
 		}
 
@@ -103,7 +103,7 @@ class MemberGateway extends GatewayStorage {
 	 * @param {(Array<string>|string)} [input=Array<string>] An object containing a id property, like discord.js objects, or a string
 	 * @returns {?(MemberGateway|external:Settings)}
 	 */
-	async sync(input = this.client.guilds.reduce((keys, guild) => keys.concat(guild.members.map(member => member.settings.id)), [])) {
+	async sync(input = this.client.guilds.cache.reduce((keys, guild) => keys.concat(guild.members.cache.map(member => member.settings.id)), [])) {
 		if (Array.isArray(input)) {
 			if (!this._synced) this._synced = true;
 			const entries = await this.provider.getAll(this.type, input);
@@ -119,8 +119,8 @@ class MemberGateway extends GatewayStorage {
 			}
 
 			// Set all the remaining settings from unknown status in DB to not exists.
-			for (const guild of this.client.guilds.values()) {
-				for (const member of guild.members.values()) if (member.settings._existsInDB !== true) member.settings._existsInDB = false;
+			for (const guild of this.client.guilds.cache.values()) {
+				for (const member of guild.members.cache.values()) if (member.settings._existsInDB !== true) member.settings._existsInDB = false;
 			}
 			return this;
 		}
