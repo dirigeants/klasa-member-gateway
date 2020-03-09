@@ -347,12 +347,12 @@ dmd@^4.0.5:
 
 "docgen@github:dirigeants/docsgen":
   version "0.0.1"
-  uid "7077cfb23fcb6009273c9652b5b1fdfb30e71f14"
-  resolved "https://codeload.github.com/dirigeants/docsgen/tar.gz/7077cfb23fcb6009273c9652b5b1fdfb30e71f14"
+  uid "2f13d41ed15da3343d1f05fa74e4ce345bc17e4b"
+  resolved "https://codeload.github.com/dirigeants/docsgen/tar.gz/2f13d41ed15da3343d1f05fa74e4ce345bc17e4b"
   dependencies:
     fs-nextra "^0.4.7"
     jsdoc-to-markdown "^5.0.3"
-    yargs "^15.2.0"
+    yargs "^15.3.0"
 
 doctrine@^3.0.0:
   version "3.0.0"
@@ -1588,16 +1588,16 @@ y18n@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/y18n/-/y18n-4.0.0.tgz#95ef94f85ecc81d007c264e190a120f0a3c8566b"
 
-yargs-parser@^17.1.0:
-  version "17.1.0"
-  resolved "https://registry.yarnpkg.com/yargs-parser/-/yargs-parser-17.1.0.tgz#b95ff3201e98b89e86070f92bef636016a0b0766"
+yargs-parser@^18.1.0:
+  version "18.1.0"
+  resolved "https://registry.yarnpkg.com/yargs-parser/-/yargs-parser-18.1.0.tgz#1b0ab1118ebd41f68bb30e729f4c83df36ae84c3"
   dependencies:
     camelcase "^5.0.0"
     decamelize "^1.2.0"
 
-yargs@^15.2.0:
-  version "15.2.0"
-  resolved "https://registry.yarnpkg.com/yargs/-/yargs-15.2.0.tgz#cb9fc7f7ec429f7e9329b623f5c707a62dae506a"
+yargs@^15.3.0:
+  version "15.3.0"
+  resolved "https://registry.yarnpkg.com/yargs/-/yargs-15.3.0.tgz#403af6edc75b3ae04bf66c94202228ba119f0976"
   dependencies:
     cliui "^6.0.0"
     decamelize "^1.2.0"
@@ -1609,4 +1609,4 @@ yargs@^15.2.0:
     string-width "^4.2.0"
     which-module "^2.0.0"
     y18n "^4.0.0"
-    yargs-parser "^17.1.0"
+    yargs-parser "^18.1.0"
