@@ -1,5 +1,5 @@
 {
-  "name": "klasa-member-gateway",
+  "name": "@klasa/member-gateway",
   "version": "0.0.1-dev",
   "description": "Klasa Member Gateway: a simple plugin for the klasa bot framework that adds an efficient per-member settings gateway.",
   "homepage": "https://klasa.js.org/",
