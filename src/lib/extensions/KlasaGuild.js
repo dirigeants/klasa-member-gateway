@@ -18,7 +18,8 @@ Structures.extend('Guild', Guild => {
 			 * @since 0.0.1
 			 * @type {KlasaGuildMemberStore}
 			 */
-			this.members = new KlasaGuildMemberStore(this, members);
+			this.members = new KlasaGuildMemberStore(this);
+			if (members) for (const member of members) this.members.add(member);
 		}
 
 	}
