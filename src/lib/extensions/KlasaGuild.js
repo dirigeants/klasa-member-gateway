@@ -8,17 +8,15 @@ Structures.extend('Guild', Guild => {
 	 */
 	class KlasaGuild extends Guild {
 
-		constructor(client, data) {
-			// avoid double iteration by the super class populating the members collection
-			const { members, ...restData } = data || {};
-			super(client, Object.keys(restData).length ? restData : undefined);
+		constructor(...args) {
+			super(...args);
 
 			/**
 			 * Storage for KlasaMembers
 			 * @since 0.0.1
 			 * @type {KlasaGuildMemberStore}
 			 */
-			this.members = new KlasaGuildMemberStore(this, members);
+			this.members = new KlasaGuildMemberStore(this);
 		}
 
 	}
